@@ -1,0 +1,18 @@
+.navbar{
+    clear:both;
+    float:none;
+    line-height: 28px
+}
+.topbar{
+    line-height: 42px
+}
+.posts-container{
+    margin: 0px auto;
+}
+.float-button{
+    right: 20px;
+    bottom: 24px;
+    min-width: 58px;
+    min-height: 58px;
+    line-height: 58px;
+}

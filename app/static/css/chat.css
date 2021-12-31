@@ -1,0 +1,102 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+}
+.list-room-container{
+    height: calc(100vh - 52px);
+}
+.list-container, .room-container{
+    border: 1px solid;
+    box-sizing: border-box;
+    float: left;
+    height: 100%;
+    overflow: auto;
+}
+.list-container{
+    min-width: 320px;
+    width: 35%;
+}
+.room-container{
+    max-width: 500px;
+}
+
+.lists{
+    list-style-type: none;
+    margin: 0 0;
+    padding: 0;
+}
+/* for each list */
+.lists > li{
+    overflow: hidden;
+    /* line-height: 48px; */
+}
+.lists .profile-image{
+    float: left;
+}
+.lists .profile-image + div{
+    margin: 6px 10px 6px 48px;
+    display: block;
+    /* line-height: normal; */
+    /* vertical-align: middle; */
+    /* border: 1px solid red; */
+}
+.author-name{
+    /* max-width: calc(100% - 60px); */
+}
+.created-time{
+    margin-left: 6px;
+    float: right;
+}
+.last-message{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.room-header{
+    border: 1px solid;
+    height: 48px;
+    line-height: 48px;
+}
+.room-header .author-name, .room-header .profile-image{
+    float: left;
+    vertical-align: middle;
+}
+.room-header .icon-normal{
+    width: 22px;
+    float: right;
+    margin: 10px;
+}
+.chats{
+    padding: 12px;
+}
+/* for each chat  */
+.chats > div.me{
+    text-align: right;
+}
+.chats > div > div{
+    margin: 8px 0 0 0;
+    padding: 10px 14px;
+    border-radius: 12px;
+    display: inline-block;
+    max-width: 86%;
+    text-align: left;
+}
+.chats > div.me > div{
+    background-color: #cff3f3;
+}
+.chats > div.other > div{
+    background-color: mistyrose;
+}
+/* for each chat created time */
+.chats > div > div > span{
+    float: right;
+}
+
+.single-line-ellipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

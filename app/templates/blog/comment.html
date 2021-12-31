@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='home.css')}}">
+    <link rel="stylesheet" media="screen and (max-width: 480px)" href="{{url_for('static', filename='responsive-screen/home-le-480.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/comment.css')}}">
+    <link rel="stylesheet" media="screen and (max-width: 680px)" href="{{url_for('static', filename='responsive-screen/comment-le-640.css')}}">
+    <link rel="stylesheet" media="screen and (max-width: 460px)" href="{{url_for('static', filename='responsive-screen/comment-le-460.css')}}">
+    <title>Comment</title>
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="text-logo makable-text">Social App</div>
+        <div class="top-right">
+            <a href="#profile">
+                <img src="{{url_for('get_icon', filename='user.png')}}" class="profile-image" alt="">
+            </a>
+            {%if g.user%}<a href="{{url_for('auth.logout')}}">Sign out</a>
+            {%else%}<a href="{{url_for('auth.login')}}">Sign in</a>{%endif%}
+        </div>
+        <div class="navbar"><a href="{{url_for('blog.posts')}}">Home</a><a href="#messages">Messages</a><a href="#friends">Friends</a></div>
+    </div>
+    <div class="post-and-comments-container">
+        <div class="wrap-content-container" id="wrapper1">
+            <div class="post-container">
+                <div class="post-header">
+                    <img src="{{url_for('get_icon', filename='user1.png')}}" class="profile-image" alt="">
+                    <div class="short-details">
+                        <div class="author-name makable-text">{{post['author_name']}}</div>
+                        <div class="created-time makable-text">{{post['created']}}</div>
+                    </div>
+                    <div class="overflow-button">
+                        <div class="more-button-ellipsis">
+                            <div></div><div></div><div></div>
+                        </div>
+                        <div class="more-actions">
+                            <a href="{{url_for('blog.edit_post', post_id=post['id'])}}">Edit</a>
+                            <a href="{{url_for('blog.delete_post', post_id=post['id'])}}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {%if post['image_name']%}<img src="{{url_for('blog.uploaded_image', post_id=post['id'], image_name=post['image_name'])}}" alt="" class="post-image">{%endif%}
+                {%if post['body']%}<p class="post-body ellipsize-multiline makable-text">{{post['body']}}</p>{%endif%}
+                <div class="post-actions flex-container">
+                    <a href="{{url_for('blog.like_post', post_id=post['id'])}}"><img src="{{url_for('get_icon', filename='like.png')}}" class="icon-small" alt=""><span class="qty">{{post['likes']}}</span></a>
+                    <a href="#chat"><img src="{{url_for('get_icon', filename='chat-bubbles-with-ellipsis.png')}}" class="icon-small" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <div class="wrap-content-container" id="wrapper2" style="margin-bottom: 56px;">
+            <div class="comments-container-header">{{post['comments']}} {{('comment' if post['comments'] == 1 else 'comments')}} </div>
+            <div class="comments-container" id="comments-container">
+                {%for comment in comments%}
+                <div class="comment-container {{'right' if g.user and g.user['id'] == comment['author_id'] else ''}}">
+                    <img src="{{url_for('get_icon', filename='user1.png')}}" class="profile-image" alt="">
+                    <div class="text-box">
+                        <div class="comment-header">
+                            <span class="author-name">{{comment['author_name']}}</span><span class="created-time">{{comment['created']}}</span>
+                        </div>
+                        <div class="text-body">
+                            {{comment['body']}}
+                        </div>
+                    </div>
+                </div>
+                {%else%}
+                <div class="no-comment-container">
+                    <img class="icon-big" src="{{url_for('get_icon', filename='message.png')}}" alt="">
+                    <div class="no-comment-message">No one has commented yet</div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+        <div class="write-container" id="write-container">
+            <form action="" method="post" class="form">
+                <textarea name="body" class="comment-field" id="comment-field" placeholder="Write comment"></textarea>
+                <button type="submit" class="submit" id="submit-button"><img class="icon-normal" src="{{url_for('get_icon', filename='send1.png')}}" alt=""></button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function do_sizing_and_positioning(){
+            let w1 = document.getElementById('wrapper1')
+            let w2 = document.getElementById('wrapper2')
+            let interval = setInterval(setBestFit, 1000)
+
+            function setBestFit(){
+                if(w1.offsetLeft != w2.offsetLeft){
+                    if(w1.scrollHeight > w1.offsetHeight && w2.scrollHeight > w2.offsetHeight){
+                        if(w1.scrollHeight < w2.scrollHeight){
+                            w1.style.maxHeight = w1.scrollHeight +'px'
+                            w1.style.overflow = 'visible'
+                        }
+                        else{
+                            w2.style.maxHeight = w2.scrollHeight + 'px'
+                            w1.style.overflow = 'visible'
+                        }
+                    }
+                }
+            }
+        }
+        do_sizing_and_positioning()
+    </script>
+</body>
+
+</html>

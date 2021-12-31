@@ -1,0 +1,125 @@
+.post-and-comments-container{
+    margin: auto;
+    max-width: 1000px;
+    overflow: hidden;
+    position: relative;
+}
+.wrap-content-container{ 
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-x: clip;
+    max-height: 100vh;
+    float: left;
+    width: 500px;
+    max-width: 50%;
+    padding: 0 10px;
+    box-sizing:border-box;
+}
+.comments-container-header{border-bottom: 2px solid #cccc;margin: 10px 10px 0;padding: 0 4px;color: #777;}
+.comments-container{margin-top: 10px;}
+.comment-container{
+    /* border: 1px solid gray; */
+}
+
+/* .comment-container::after{
+    display: table;
+    content: "";
+    clear: both;
+} */
+.comment-header{
+    margin-bottom: 4px;
+}
+.comment-container .profile-image{
+    float: left !important;
+}
+.comment-container .created-time{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.text-box{
+    overflow: hidden;
+    max-width: 74%;
+    display: inline-block;
+    border-radius: 12px;
+    padding: 8px 10px;
+    margin: 8px 0px 0px 0;
+    background-color: mistyrose;
+}
+.comment-container.right{
+    text-align: right;
+}
+.comment-container.right .text-body{
+    text-align: left;
+}
+.comment-container.right .profile-image {
+    float: right !important;
+}
+.comment-container.right .author-name {
+    float: right;
+    margin: 0 0 0 14px;
+}
+.comment-container.right .text-box{
+    background-color: #cff3f3;
+}
+
+.no-comment-container{
+    margin: 36px 0;
+    text-align: center;
+}
+.no-comment-message{
+    margin: 10px 0;
+    color: #777;
+}
+
+.write-container{
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    border-radius: 6px 6px 0 0;
+    padding: 4px 8px;
+    width: 50%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 0px 0;
+}
+.form{
+    position: relative;
+    display: block;
+}
+.comment-field{
+    border-width: 1px;
+    outline: none;
+    border-style: solid;
+    padding: 8px 14px;
+    width: 80%;
+    width: calc(100% - 50px);
+    display: block;
+    resize: none;
+    max-height: 72px;
+    border-radius: 48px;
+    box-sizing:border-box;
+    height: 42px;
+}
+.submit{
+    background-color: turquoise;
+    border-style: none;
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+}
+.icon-normal{
+    vertical-align: middle;
+    width: 24px;
+    position: relative;
+    height: 24px;
+    right: 3px;
+}

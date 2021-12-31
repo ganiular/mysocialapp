@@ -1,0 +1,350 @@
+body{user-select: text;margin: 0;}
+.makable-text{user-select: text}
+.topbar{
+    overflow: auto;
+    background-color: black;
+    min-height: 52px;
+    line-height: 50px;
+}
+.text-logo{
+    color: #FFF;
+    font-weight: bolder;
+    font-size: 24px;
+    padding: 0px 14px;
+    float: left;
+}
+.navbar{
+    float: left;
+    padding: 0 4px;
+}
+.navbar a{
+    padding: 0 8px;
+}
+.top-right{
+    float: right;
+    padding: 0 12px;
+}
+.profile-image{
+    margin: 8px;
+    background-color: #fff;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.topbar a{
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.topbar a.current {
+    background-color: #666;
+}
+.topbar .profile-image{
+    border: 2px solid #fff;
+    width: 24px;
+    height: 24px;
+}
+
+
+/*------------------- MAIN -----------------------*/
+.posts-container{
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.post-container{
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 4px 2px #c3c3c357;
+    border-radius: 4px;
+    width: 100%;
+    margin: 10px 0;
+}
+.post-header{
+    /* overflow: hidden; */
+    /* padding: 2px 0px 4px 8px; */
+    min-height: 42px;
+    line-height: 42px;
+}
+.short-details{
+    /* padding-left: 8px; */
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+.author-name{
+    margin-right: 14px;
+    overflow: hidden;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.created-time{
+    color: #555;
+    font-size: 0.8em;
+}
+.overflow-button{
+    float: right;
+    position: relative;
+}
+.more-button-ellipsis{
+    line-height: normal;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.more-button-ellipsis > div{
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    background-color: #999;
+    margin: 3px auto;
+}
+.more-actions{
+    display: none;
+    border: 1px solid #ddd;
+    box-shadow: -2px 8px 10px 2px #00000030;
+    position: absolute;
+    background-color: #FFF;
+    top: 8px;
+    right: 4px;
+    line-height: normal;
+    z-index: 0;
+    min-width: 120px;
+}
+.overflow-button:hover .more-actions{
+    display: block;
+}
+.more-actions a {
+    display: block;
+    padding: 10px 18px;
+}
+.more-actions a:hover{
+    background-color: #e2e2e2;
+}
+.post-image{
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 400px;
+    display: block;
+}
+.post-body{
+    color: #111;
+    padding: 10px 10px 10px;
+    margin: 0;
+    text-align: justify;
+}
+.post-actions{
+    border-top: 1px solid #ccd;
+    padding: 8px 10px 10px;
+}
+.post-actions a{
+    text-decoration: none;
+    width: 64px;
+    text-align: center;
+    padding: 2px;
+    margin: 0;
+}
+.flex-container{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+}
+.ellipsize-multiline{
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 4em;
+}
+.icon-small{
+    width: 1.2em;
+    height: 1.2em;
+}
+.icon-big{
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    vertical-align: middle;
+    position: relative;
+    bottom: 4px;
+}
+.qty{
+    margin-left: 4px;
+    font-size: 0.8em;
+    color: #666;
+}
+.float-button{
+    position: fixed;
+    display: block;
+    text-decoration: none;
+    bottom: 28px;
+    right: 36px;
+    min-width: 64px;
+    min-height: 64px;
+    line-height: 64px;
+    text-align: center;
+    /*     border: 2px solid black; */
+    border-radius: 50%;
+    background-color: #ffd400;
+    box-shadow: 0 0 5px 2px #00000025;
+}
+
+
+/*-------------------- Modal -------------------*/
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px 20px 28px;
+    border: 1px solid #888;
+    max-width: 500px;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+.modal-close{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.modal-close:hover, .modal-close:focus{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes animatetop {
+    from{top: -300px; opacity: 0;}
+    to{top: 0; opacity: 1;}
+}
+
+
+.text-field{
+    display: block;
+    width: 100%;
+    margin: 10px 0 20px;
+    min-height: 30vh;
+    box-sizing: border-box;
+    resize: none;
+    padding: 10px;
+    border-radius: 4px;
+     
+}
+.image-label{
+    float: left;
+    padding: 6px 0;
+    font-weight: bold;
+    color: blue;
+    margin-right: 4px;
+}
+#image-name-container{
+    float: left;
+    display: none;
+    vertical-align: middle;
+    position: relative;
+}
+#image-name{
+    display: block;
+    max-width: 180px;
+    padding: 6px 8px;
+    border: 1px solid blue;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-radius: 2em;
+}
+.image-cancel{
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 20px;
+    display: inline-block;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 15px;
+    height: 15px;
+    background: red;
+    text-align: center;
+    line-height: 15px;
+    color: white;
+    font-weight: bold;
+}
+input[type=file]{
+    max-width: 0;
+    opacity: 0;
+}
+input[type=submit]{
+    float: right;
+    padding: 8px 12px;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(63, 63, 212);
+    border: none;
+    border-radius: 4px;
+}
+
+.clearfix::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.show{
+    display: block;
+}
+
+.error-container{
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: scale(0);
+    z-index: 1;
+    margin-top: 10%;
+}
+.error-container.error-animate{
+    display: block;
+    animation-name: animatetop2;
+    animation-duration: 10s;
+}
+#error-box{
+    border-radius: 20px;
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: white;
+    color: red;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px 3px rgba(255, 0, 0, 0.733);
+}
+
+@keyframes animatetop2 {
+    0%{top: -100px; opacity: 0; transform: scale(1);}
+    3%{top: 0%; opacity: 1;}
+    80%{opacity: 1;}
+    100%{opacity: 0; transform: scale(1);}    
+}

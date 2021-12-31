@@ -1,0 +1,18 @@
+.wrap-content-container{
+    box-sizing: content-box;
+    margin: 0 auto;
+    max-width: 500px;
+    width: auto;
+    max-height: none;
+    float: none;
+    overflow: visible;
+    padding: 0;
+}
+.text-box{
+    max-width: 80%;
+}
+.write-container {
+    left: 0;
+    width: 100%;
+    max-width: none;
+}

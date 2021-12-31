@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='home.css')}}">
+    <link rel="stylesheet" media="screen and (max-width: 480px)" href="{{url_for('static', filename='responsive-screen/home-le-480.css')}}">
+    <link rel="stylesheet" media="screen and (max-width: 376px)" href="{{url_for('static', filename='responsive-screen/home-le-376.css')}}">
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="text-logo makable-text">Social App</div>
+        <div class="top-right">
+            <a href="#profile">
+                <img src="{{url_for('get_icon', filename='user.png')}}" class="profile-image" alt="" height="32px" width="32px">
+            </a>
+            {%if g.user%}<a href="{{url_for('auth.logout')}}">Sign out</a>
+            {%else%}<a href="{{url_for('auth.login')}}">Sign in</a>{%endif%}
+        </div>
+        <div class="navbar"><a href="{{url_for('blog.posts')}}" class="current">Home</a><a href="#chats">Chats</a><a href="#friends">Friends</a></div>
+    </div>{%if g.user%}
+    <a class="float-button" href="{{url_for('blog.write_post')}}" title="Write Message" onclick="writePost(this.href);return false"; return false">
+        <img src="{{url_for('get_icon', filename='writing.png')}}" class="icon-big" alt="" height="32px" width="32px">
+    </a>{%else%}
+    <a class="float-button" href="{{url_for('auth.login')}}" title="Write Message">
+        <img src="{{url_for('get_icon', filename='writing.png')}}" class="icon-big" alt="" height="32px" width="32px">
+    </a>{%endif%}
+
+    <div id="modal" class="modal {{'show' if request.endpoint in ['blog.write_post', 'blog.edit_post'] else ''}}">
+        <div class="modal-content">
+            <span class="modal-close" onclick="modal.style.display = 'none'" title="Close Edit">&times;</span>
+            <form action="{{url_for('blog.edit_post', post_id=post['id']) if request.endpoint == 'blog.edit_post' else url_for('blog.write_post')}}" method="post" enctype="multipart/form-data">
+                <textarea name="body" class="text-field" id="text-field" placeholder="Write message">{{post['body'] if post else request.form['body']}}</textarea>
+                <div class="clearfix">
+                    <label for="image" class="image-label"><img style="vertical-align: middle;" class="icon-small" src="{{url_for('get_icon', filename='image.png')}}" height="20px" width="20px" alt=""> Add Picture</label><div id="image-name-container"><span id="image-name"></span><span class="image-cancel" title="Cancel Image" onclick="cancelImage()">&times;</span></div><input type="file" name="image" id="image" accept="image/*"  onchange="onImageChange(event)">
+                    <input type="submit" value="POST MESSAGE">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="error-container" class="error-container {{'error-animate' if error_msg else ''}}">
+        <div id="error-box">{{error_msg}}</div>    
+    </div>
+
+    <div class="posts-container">
+        {%for post in posts%}
+        <div class="post-container" id="{{post['id']}}">
+            <div class="post-header">
+                <img src="{{url_for('get_icon', filename='user1.png')}}" class="profile-image" alt="" height="32px" width="32px">
+                <div class="short-details">
+                    <div class="author-name makable-text">{{post['author_name']}}</div>
+                    <div class="created-time makable-text">{{post['created']}}</div>
+                </div>
+                {%if g.user and g.user['id'] == post['author_id']%}
+                <div class="overflow-button">
+                    <div class="more-button-ellipsis">
+                        <div></div><div></div><div></div>
+                    </div>
+                    <div class="more-actions">
+                        <a href="{{url_for('blog.edit_post', post_id=post['id'])}}" onclick="editPost(this.href, {{post['id']}}); return false">Edit</a>
+                        <a href="{{url_for('blog.delete_post', post_id=post['id'])}}" onclick="return deletePost(this.href);">Delete</a>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+            {%if post['image_name']%}<img src="{{url_for('blog.uploaded_image', post_id=post['id'], image_name=post['image_name'])}}" alt="" class="post-image">{%endif%}
+            {%if post['body']%}<p id="{{post['id']}}-body" class="post-body ellipsize-multiline makable-text">{{post['body']}}</p>{%endif%}
+            <div class="post-actions flex-container">
+                <a href="{{url_for('blog.like_post', post_id=post['id'])}}"><img src="{{url_for('get_icon', filename='like.png')}}" class="icon-small" height="20px" width="20px" alt=""><span class="qty">{{post['likes']}}</span></a>
+                <a href="{{url_for('blog.comment_post', post_id=post['id'])}}"><img src="{{url_for('get_icon', filename='message.png')}}" class="icon-small" alt="" height="20px" width="20px"><span class="qty">{{post['comments']}}</span></a>
+                <a href="#chat"><img src="{{url_for('get_icon', filename='chat-bubbles-with-ellipsis.png')}}" class="icon-small" height="20px" width="20px" alt=""></a>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+    
+    <script>
+        modal = document.getElementById('modal');
+        window.onclick = function(event){
+            if(event.target == modal){
+                modal.style.display = 'none';
+            }
+        }
+        function onImageChange(e){
+            if(e.target.files[0] !== undefined){
+                let img_name = document.getElementById('image-name')
+                img_name.innerText = e.target.files[0].name
+                img_name.parentElement.style.display = 'block'
+            }
+        }
+        function cancelImage(){
+            let image = document.getElementById('image');
+            let nameBlock = document.getElementById('image-name-container');
+
+            image.value = null
+            nameBlock.style.display = 'none'
+        }
+        function tigger_error(message){
+            let errorBlock = document.getElementById('error-container')
+            errorBlock.firstElementChild.innerText = message
+            errorBlock.classList.remove('error-animate')
+            errorBlock.offsetWidth
+            errorBlock.classList.add('error-animate')
+            setTimeout(function(){
+                errorBlock.classList.remove('error-animate')
+                console.log("Error remove is")
+            }, 10_000)
+        }
+        function writePost(url){
+            modal.style.display='block'
+            document.forms[0].action = url;    
+        }
+        function editPost(url, post_id){
+            modal.style.display='block'
+            document.forms[0].action = url;
+            let p = document.getElementById(post_id + '-body')
+            if(p){
+                document.getElementById('text-field').innerText = p.innerText
+            }
+        }
+        function deletePost(url){
+            return confirm('Are you sure you want to delete this message? Note that it can not be retrive after deleted.')
+        }
+    </script>
+</body>
+
+</html>

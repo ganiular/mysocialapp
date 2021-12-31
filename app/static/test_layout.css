@@ -1,0 +1,33 @@
+body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+div{
+    border: 1px solid;
+    box-sizing: border-box;
+}
+.head{
+    background-color: blanchedalmond;
+}
+.main{
+    background-color: blueviolet
+}
+.left-container, .right-container{
+    overflow-y: auto;
+    max-height: 100%;
+    float: left;
+    width: 50%;
+}
+.left-container{
+}
+.left-container .content{
+    height: 500px;
+}
+.right-container{
+    
+}
+.right-container .content{
+    height: 1000px;
+}

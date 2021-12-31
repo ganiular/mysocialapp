@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+</head>
+
+<body>
+    <h1>Email Verification</h1>
+    <p>In order to verify the authentication of your provided email address. We have sent you a verification code. Please check your mail box and enter the code in the input field below.</p>
+    <p>{{ error_msg|safe }}</p>
+    <form action="" method="POST">
+        <div><label for="code">Verification code</label><input type="text" name="code" id="code"></div>
+        <div><input type="submit" value="VERIFY EMAIL"></div>
+    </form>
+
+    If no code received yet or the code has expired. Click <a href="{{request.full_path}}">here</a> to try again.
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Message</title>
+</head>
+<body>
+    <h1>Write Message</h1>
+    <p>{{ error_msg|safe }}</p>
+    <form action="" method="POST" onsubmit="" enctype="multipart/form-data">
+        <div><label for="">Message body</label><textarea name="body" id="" cols="30" rows="10"></textarea></div>
+        <div><label for="">Attach image</label><input type="file" name="image" id="image" accept="image/*"></div>        
+        <div><input type="submit" value="POST"></div>
+    </form>
+</body>
+</html>
