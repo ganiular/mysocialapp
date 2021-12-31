@@ -1,0 +1,15 @@
+venv/
+
+instance/
+
+uploads/
+
+__pycache__/
+
+/database.db
+/hello.py
+app/static/fontawesome/v5.7.0/all.css
+app/templates/build/chat.html
+app/templates/build/comment.html
+app/templates/build/home.html
+app/templates/test-layout.html
